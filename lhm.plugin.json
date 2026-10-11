@@ -1,0 +1,275 @@
+{
+  "identifier": "xianmu-comics",
+  "name": "XianMu Comics",
+  "version": "1.0.0",
+  "description": "568 classic Chinese lianhuanhua (picture-story books, 1960s-1990s) over MCP: catalog browsing and search, book page images, story-summary audio, page-by-page narration, character profiles, and immersive AI role-play chat with the characters. Free tier with daily quota; pay-per-book unlocks via in-chat Alipay QR codes; points top-ups for VIP members. No subscription.",
+  "author": "XianMu (miaokingsoft)",
+  "authorUrl": "https://www.wwzu.com",
+  "category": "media-generate",
+  "homepage": "https://www.wwzu.com/mcp-landing.php",
+  "cloudEndpoint": "https://www.wwzu.com/mcp",
+  "icon": "📚",
+  "tags": [
+    "comics",
+    "chinese",
+    "picture-books",
+    "audio",
+    "narration",
+    "ai-chat",
+    "roleplay",
+    "storytelling"
+  ],
+  "tools": [
+    {
+      "name": "get_comic",
+      "description": "获取连环画完整信息，解锁态自适应：未解锁给基础信息 + 前 20 页图预览 + 解锁报价 +\n    整书梗概语音试听；已解锁给全量页图 + 逐页朗读音频 + 逐页文字 + AI 故事资料。\n\n    Args:\n        comic_id: 连环画标识（官网 htmlname，如 200741113201；也兼容内部数字 ID）\n        page: 单页模式页码（1 起；缺省或 0 为列表模式）。与 page_start/page_limit 互斥\n        page_start: 列表模式起始页码（书内页码，1 起，默认 1）\n        page_limit: 列表模式本次返回页数上限（未解锁封顶 20 页预览；已解锁默认 50、上限 200，\n            超限自动收窄。翻页：page_start = 上一次 page_start + returned，\n            page_start + returned - 1 >= pages.total 即取完整本）\n    ",
+      "inputSchema": {
+        "properties": {
+          "comic_id": {
+            "title": "Comic Id",
+            "type": "string"
+          },
+          "page": {
+            "default": 0,
+            "title": "Page",
+            "type": "integer"
+          },
+          "page_start": {
+            "default": 1,
+            "title": "Page Start",
+            "type": "integer"
+          },
+          "page_limit": {
+            "default": 0,
+            "title": "Page Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "comic_id"
+        ],
+        "title": "get_comicArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_account",
+      "description": "查询当前账户：积分余额、VIP 状态、充值套餐与已解锁连环画清单（免费）。\n    用户询问\"我的积分 / 我解锁了哪些书 / 怎么充值\"时调用。\n\n    Args:\n        unlocked_limit: 已解锁清单返回条数上限（1-100，默认 20，按解锁时间倒序）\n    ",
+      "inputSchema": {
+        "properties": {
+          "unlocked_limit": {
+            "default": 20,
+            "title": "Unlocked Limit",
+            "type": "integer"
+          }
+        },
+        "title": "get_accountArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "unlock_comic",
+      "description": "解锁单部连环画（免费工具，不占每日额度）。解锁后可访问全部页图、逐页朗读音频、\n    逐页文字、完整角色档案与角色 AI 图集；解锁订单同步进入官网「个人中心 → 我的订单」，\n    可在『查看/下载』下载高清资源包（离线收藏 ZIP，响应含具体指引 resource_pack）。\n\n    Args:\n        comic_id: 连环画标识（官网 htmlname，如 200741113201）\n        method: 'points'=扣积分解锁（高级会员专享，幂等，重复调用不重复扣）；\n                'alipay'=返回支付宝订单码二维码（免费会员唯一解锁方式，VIP 积分不足时也用它）\n    ",
+      "inputSchema": {
+        "properties": {
+          "comic_id": {
+            "title": "Comic Id",
+            "type": "string"
+          },
+          "method": {
+            "default": "points",
+            "title": "Method",
+            "type": "string"
+          }
+        },
+        "required": [
+          "comic_id"
+        ],
+        "title": "unlock_comicArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "check_payment",
+      "description": "确认支付结果并自动交付（免费，可反复轮询直到 paid=true）。\n    自动识别订单类型：解锁单到账即解锁，积分充值单到账即入账。\n\n    Args:\n        order_no: unlock_comic(method='alipay') 或 recharge_points 返回的订单号\n        comic_id: 未使用（保留参数位，历史 AI 付凭证已下线）\n    ",
+      "inputSchema": {
+        "properties": {
+          "order_no": {
+            "default": "",
+            "title": "Order No",
+            "type": "string"
+          },
+          "comic_id": {
+            "default": "",
+            "title": "Comic Id",
+            "type": "string"
+          }
+        },
+        "title": "check_paymentArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "recharge_points",
+      "description": "在对话内充值积分（免费）：创建积分订单并返回支付宝订单码二维码。\n\n    Args:\n        package_key: 套餐 key（见 get_account 返回的 packages，如 p100/p500/p1000）\n    ",
+      "inputSchema": {
+        "properties": {
+          "package_key": {
+            "title": "Package Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "package_key"
+        ],
+        "title": "recharge_pointsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "reset_daily_quota",
+      "description": "积分重置今日调用额度（免费工具，不占每日额度）：内容查询工具的每日额度用完（429）时，\n    可扣除积分立即把今日计数清零，无需等到明天；VIP 会员每日限额更高（重置后按 VIP 限额生效）。\n\n    Returns:\n        reset/cost_points/points_balance/daily_used/daily_limit/message\n    ",
+      "inputSchema": {
+        "properties": {},
+        "title": "reset_daily_quotaArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "search_characters",
+      "description": "查询连环画角色（统一入口）。基础档案免费；完整档案（外貌/性格）与 AI 图集\n    需解锁角色所属连环画，未解锁的角色自动降级为基础信息并附解锁引导。\n\n    - query：按姓名关键词搜索（空格分隔多关键词 OR 匹配，最多 5 个），可叠加 comic_id 限定某书内搜；\n    - character_ids：按角色 ID 批量查询（≤50 个/次）；\n    - comic_id：单独传时返回该书全部角色（官网 htmlname 标识）；\n    - random：随机返回一个可 AI 对话的角色（is_chat=1 中抽取）。\n\n    Args:\n        query: 角色名关键词，如 \"关羽\"\n        character_ids: 角色 ID 列表（≤50）\n        comic_id: 限定所属连环画（官网 htmlname，如 200741113201）\n        random: 随机返回一个可对话角色（与 query/character_ids/comic_id 互斥）\n        include_ai_images: 是否附带角色 AI 图集（需该书已解锁，默认 false）\n        ai_images_limit: AI 图集返回数量上限（1-50，默认 20）\n        limit: 列表返回数量上限（1-50，默认 20）\n    ",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "default": "",
+            "title": "Query",
+            "type": "string"
+          },
+          "character_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Character Ids"
+          },
+          "comic_id": {
+            "default": "",
+            "title": "Comic Id",
+            "type": "string"
+          },
+          "random": {
+            "default": false,
+            "title": "Random",
+            "type": "boolean"
+          },
+          "include_ai_images": {
+            "default": false,
+            "title": "Include Ai Images",
+            "type": "boolean"
+          },
+          "ai_images_limit": {
+            "default": 20,
+            "title": "Ai Images Limit",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "search_charactersArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_site_overview",
+      "description": "获取站点概况：内容统计（连环画/页数/角色/可对话角色/AI 图/标签数）与全部标签目录。\n    可用于 browse_comics 的 tag 参数；统计部分缓存 5 分钟。",
+      "inputSchema": {
+        "properties": {},
+        "title": "get_site_overviewArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "browse_comics",
+      "description": "浏览/搜索连环画（统一入口，四种模式互斥，返回条目同构）。\n\n    - query：标题关键词搜索，空格分隔多关键词（OR 匹配，最多 5 个），\n      排序：完整短语精确匹配 > 前缀匹配 > 命中词数 > 热度；\n    - tag：按标签浏览（分页），标签见 get_site_overview 的 tag_list，sort 白名单 hits/wwwid/rating/jishu；\n    - ranking：排行榜，ranking 取 favorites（收藏）/ rating（评分）/ hot（综合热度），\n      不含访问量/阅读量统计（views 榜已下线）；\n    - related_to：与指定连环画（官网 htmlname）标签重合的相关推荐（随机抽样）。\n\n    Args:\n        query: 标题关键词，如 \"三国演义\" 或 \"铁道 游击\"\n        tag: 标签名，如 \"三国演义\"\n        ranking: 榜单类型 favorites / rating / hot\n        related_to: 相关推荐锚点书的 comic_id（官网 htmlname）\n        sort: 仅 tag 模式生效的排序字段 hits/wwwid/rating/jishu（默认 hits）\n        order: asc / desc（默认 desc）\n        limit: 返回数量上限（默认 20；ranking 最多 50，related_to 最多 10）\n        offset: 跳过条数（tag 模式配合 total 翻页）\n    ",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "default": "",
+            "title": "Query",
+            "type": "string"
+          },
+          "tag": {
+            "default": "",
+            "title": "Tag",
+            "type": "string"
+          },
+          "ranking": {
+            "default": "",
+            "title": "Ranking",
+            "type": "string"
+          },
+          "related_to": {
+            "default": "",
+            "title": "Related To",
+            "type": "string"
+          },
+          "sort": {
+            "default": "hits",
+            "title": "Sort",
+            "type": "string"
+          },
+          "order": {
+            "default": "desc",
+            "title": "Order",
+            "type": "string"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "title": "browse_comicsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "chat_with_character",
+      "description": "与书中角色进行 AI 沉浸式对话（角色扮演，复用主站调优 Prompt 模板，对话历史与主站互通）。\n    无需解锁连环画，每条对话扣积分（默认 1 积分/条，与主站同价）；仅限已开启对话功能（is_chat=1）的角色。\n\n    Args:\n        character_id: 角色 ID（search_characters 返回的 can_chat 角色）\n        message: 对话内容（1-500 字符）\n    ",
+      "inputSchema": {
+        "properties": {
+          "character_id": {
+            "title": "Character Id",
+            "type": "integer"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "character_id",
+          "message"
+        ],
+        "title": "chat_with_characterArguments",
+        "type": "object"
+      }
+    }
+  ]
+}
