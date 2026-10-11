@@ -1,7 +1,7 @@
 {
   "identifier": "xianmu-comics",
   "name": "XianMu Comics",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "568 classic Chinese lianhuanhua (picture-story books, 1960s-1990s) over MCP: catalog browsing and search, book page images, story-summary audio, page-by-page narration, character profiles, and immersive AI role-play chat with the characters. Free tier with daily quota; pay-per-book unlocks via in-chat Alipay QR codes; points top-ups for VIP members. No subscription.",
   "author": "XianMu (miaokingsoft)",
   "authorUrl": "https://www.wwzu.com",
@@ -123,6 +123,23 @@
           "package_key"
         ],
         "title": "recharge_pointsArguments",
+        "type": "object"
+      }
+    },
+    {
+      "name": "purchase_vip",
+      "description": "购买/续费 VIP 会员（免费，不占每日额度）：创建 VIP 订单并返回支付宝订单码二维码。\n    支付到账即赠积分（月卡 1200 / 季卡 3600），有效期顺延 1 或 3 个月，无自动续费。\n\n    Args:\n        plan_key: 套餐 key（见 get_account 返回的 vip_plans：monthly=月卡 / quarterly=季卡）\n    ",
+      "inputSchema": {
+        "properties": {
+          "plan_key": {
+            "title": "Plan Key",
+            "type": "string"
+          }
+        },
+        "required": [
+          "plan_key"
+        ],
+        "title": "purchase_vipArguments",
         "type": "object"
       }
     },
