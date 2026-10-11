@@ -1,11 +1,16 @@
 ---
 name: xianmu-comics
+version: 1.2.0
+author: 闲沐（wwzu.com）
+display_name: 闲沐连环画
+display_name_en: XianMu Comics
+description_zh: 把 568 部中国经典连环画（小人书）接入对话：搜书看图、逐页朗读、与书中角色 AI 沉浸式对话，全本逐页可读。
+description_en: Bring 568 classic Chinese lianhuanhua (picture-story books, 1960s–1990s) into chat — search & read, page-by-page narration, AI role-play with book characters, full-book reading.
 description: >-
   闲沐连环画（XianMu Comics）：把 568 部中国经典连环画（小人书，1960s–1990s）接入对话——书目搜索/
   标签浏览/榜单、书页图片、故事梗概语音、逐页朗读、14171 个角色档案与 5690 个可对话角色的 AI 沉浸式
-  角色扮演，以及对话内直接付费（支付宝订单码：单部解锁 ¥1.9–¥4.9、积分充值、VIP 月卡 ¥9.9/季卡 ¥29.7）。
-  当用户想找书、看/读连环画、小人书、老漫画，想和书中角色（聂小倩、岳飞等）聊天，想解锁本书/充值积分/
-  开通 VIP 时使用；用户提到 闲沐、xianmu、wwzu、连环画、小人书、lianhuanhua、Chinese picture-story
+  角色扮演。当用户想找书、看/读连环画、小人书、老漫画，想和书中角色（聂小倩、岳飞等）聊天，或想阅读
+  某本书的完整版时使用；用户提到 闲沐、xianmu、wwzu、连环画、小人书、lianhuanhua、Chinese picture-story
   books 时也应触发——即使用户没有明说"连环画"三个字。
 ---
 
