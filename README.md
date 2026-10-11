@@ -41,14 +41,16 @@
 
 ## 接入方式二：Agent Skill（推荐支持技能的智能体，如 Claude Code / ZCode / WorkBuddy / Trae 等）
 
-无需配置 MCP，把本仓库的 [`xianmu-comics/`](./xianmu-comics/) 文件夹复制到智能体的技能目录即可
-（与 MCP 配置完全等价：同一端点、同一 Key、同一计费）：
+无需配置 MCP，一句话安装（与 MCP 配置完全等价：同一端点、同一 Key、同一计费）：
 
 ```bash
-git clone https://github.com/miaokingsoft/xianmu-comics-mcp.git
-mkdir -p ~/.agents/skills
-cp -r xianmu-comics-mcp/xianmu-comics ~/.agents/skills/
+npx xianmu-comics-skill@latest install        # 安装到 ~/.agents/skills/xianmu-comics
+npx xianmu-comics-skill@latest install --all  # 同时安装到 ~/.claude/skills 与 ~/.zcode/skills
 ```
+
+备选方式：官网直链下载 [xianmu-comics-skill-1.2.0.zip](https://www.wwzu.com/downloads/xianmu-comics-skill-1.2.0.zip)
+（解压把 `xianmu-comics/` 放进技能目录），或 `git clone` 本仓库后复制
+[`xianmu-comics/`](./xianmu-comics/) 文件夹。升级/卸载：`npx xianmu-comics-skill@latest update | uninstall`。
 
 然后设置环境变量 `XIANMU_API_KEY`（在 [mcp-keys.php](https://www.wwzu.com/mcp-keys.php) 免费创建；
 skill 也会在没有 Key 时引导你在对话内 60 秒开通）。技能内置零依赖直连脚本

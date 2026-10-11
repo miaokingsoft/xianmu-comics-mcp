@@ -1,0 +1,40 @@
+{
+  "name": "xianmu-comics-skill",
+  "version": "1.2.0",
+  "description": "闲沐连环画 Agent Skill — 568 classic Chinese lianhuanhua (picture-story books) for your AI agent: catalog & search, page images, story-summary audio, page-by-page narration, AI character chat, and in-chat Alipay payments. One-line install for Claude Code / ZCode / WorkBuddy / Trae.",
+  "bin": {
+    "xianmu-comics-skill": "bin/xianmu-comics-skill.mjs"
+  },
+  "type": "module",
+  "files": [
+    "bin/",
+    "xianmu-comics/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "agent-skills",
+    "skills",
+    "mcp",
+    "claude",
+    "claude-code",
+    "comics",
+    "lianhuanhua",
+    "chinese",
+    "picture-books",
+    "audio",
+    "narration",
+    "roleplay",
+    "xianmu"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miaokingsoft/xianmu-comics-mcp.git"
+  },
+  "homepage": "https://www.wwzu.com/mcp-landing.php",
+  "scripts": {
+    "where": "node bin/xianmu-comics-skill.mjs where"
+  }
+}
