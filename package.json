@@ -1,7 +1,7 @@
 {
   "name": "xianmu-comics-skill",
   "version": "1.2.0",
-  "description": "闲沐连环画 Agent Skill — 568 classic Chinese lianhuanhua (picture-story books) for your AI agent: catalog & search, page images, story-summary audio, page-by-page narration, AI character chat, and in-chat Alipay payments. One-line install for Claude Code / ZCode / WorkBuddy / Trae.",
+  "description": "闲沐连环画 Agent Skill — 568 classic Chinese lianhuanhua (picture-story books) for your AI agent: catalog & search, page images, story-summary audio, page-by-page narration, AI character chat, and full-book reading. One-line install for Claude Code / ZCode / WorkBuddy / Trae.",
   "bin": {
     "xianmu-comics-skill": "bin/xianmu-comics-skill.mjs"
   },
