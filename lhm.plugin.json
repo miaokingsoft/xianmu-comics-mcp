@@ -271,5 +271,52 @@
         "type": "object"
       }
     }
+  ],
+  "prompts": [
+    {
+      "name": "random_pick",
+      "description": "随机推荐一本连环画：书名、题材标签、推荐理由与官网链接，并询问是否听梗概语音试听或看前 20 页预览。"
+    },
+    {
+      "name": "explore_theme",
+      "description": "围绕一个主题推荐连环画：各配简介、标签与热度，挑 1 部展开前 20 页预览与解锁报价。",
+      "arguments": [
+        {
+          "name": "theme",
+          "description": "主题关键词，如 岳飞、铁道游击、水浒",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "character_chat",
+      "description": "找到某角色并开启 AI 沉浸式对话：先查角色档案与出处，再进入对话（提醒每条 1 积分）。",
+      "arguments": [
+        {
+          "name": "character_name",
+          "description": "角色名，如 岳飞",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "my_library",
+      "description": "查看我的账户：积分余额、VIP 状态与已解锁书架，并推荐下一步可读的书。"
+    },
+    {
+      "name": "unlock_guide",
+      "description": "给出某部书的解锁指引：当前解锁态、支付宝订单码与 VIP 积分两种方式的操作步骤与价格。",
+      "arguments": [
+        {
+          "name": "comic_title",
+          "description": "书名或编号，如 精忠报国",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "daily_ranking",
+      "description": "看热度榜与评分榜 Top 10：表格呈现，附标签与官网链接。"
+    }
   ]
 }
